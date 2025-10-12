@@ -13,3 +13,8 @@ export const getTodos = async (req, res) => {
     }
     
 }
+export const postTodo = async (req, res) => {
+    const { text } = req.body;
+    await Todo.create({ text });
+    res.status(200).json({ message: "Todo created" });
+};
