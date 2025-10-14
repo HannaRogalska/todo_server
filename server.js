@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
-import todosRouter from "./routes/todos.js"
+import todosRouter from "./routes/todos.js";
+import authRouter from "./routes/auth.js";
 import {connectDB} from "./data/db.js"
 
 
@@ -11,6 +12,7 @@ dotenv.config();
 
 app.use(express.json());
 app.use("/", todosRouter);
+app.use("/register", authRouter);
 
 const port = process.env.PORT || 3001;
 
