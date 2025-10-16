@@ -12,7 +12,7 @@ dotenv.config();
 
 app.use(express.json());
 app.use("/", todosRouter);
-app.use("/register", authRouter);
+app.use("/user", authRouter);
 
 const port = process.env.PORT || 3001;
 
