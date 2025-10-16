@@ -2,7 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import todosRouter from "./routes/todos.js";
 import authRouter from "./routes/auth.js";
-import {connectDB} from "./data/db.js"
+import { connectDB } from "./data/db.js";
+import cookieParser from "cookie-parser";
 
 
 
@@ -11,6 +12,8 @@ const app = express();
 dotenv.config();
 
 app.use(express.json());
+app.use(cookieParser());
+
 app.use("/", todosRouter);
 app.use("/user", authRouter);
 
