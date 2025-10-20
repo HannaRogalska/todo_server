@@ -79,3 +79,22 @@ export const refreshToken = async (req, res) => {
     return res.status(500).json({ message: "Server error" });
   }
 }
+
+export const logOut = (req, res) => {
+  try {
+    const token = req.cookies.refreshToken
+    if (!token) return res.status(401).json({ message: "Not founded refresh token" });
+    jwt.verify(token, process.env.REFRESH_SECRET, async (err, decoded) => {
+      const userId = decoded.userId;
+      await User.findByIdAndUpdate(userId, { refreshToken: "" });
+       res.clearCookie("refreshToken", {
+         httpOnly: true,
+         sameSite: "strict",
+       });
+      return res.status(200).json({ message: "User log out" });
+    });
+  } catch (err) {
+     console.log("Log out error:", err);
+     return res.status(500).json({ message: "Server error" });
+  }
+}
