@@ -98,3 +98,10 @@ export const logOut = (req, res) => {
      return res.status(500).json({ message: "Server error" });
   }
 }
+
+export const uploadFile = (req, res) => {
+  res.status(201).json({
+    message: "File uploaded successfully",
+    file: req.file,
+  });
+}

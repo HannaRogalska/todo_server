@@ -5,7 +5,9 @@ import {
   getProfile,
   refreshToken,
   logOut,
+  uploadFile,
 } from "../controllers/authController.js";
+import upload from "../middleware/multerConfig.js";
 import { authMiddleware } from "../middleware/authMiddleware.js"
 
 
@@ -16,6 +18,7 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/refresh-token", refreshToken);
 router.post("/log-out", logOut);
-router.get("/profile", authMiddleware,  getProfile);
+router.get("/profile", authMiddleware, getProfile);
+router.post("/upload", upload.single("image"), uploadFile);
 
 export default router;

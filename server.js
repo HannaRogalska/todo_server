@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 
 
 
+
 const app = express();
 
 dotenv.config();
@@ -16,6 +17,8 @@ app.use(cookieParser());
 
 app.use("/", todosRouter);
 app.use("/user", authRouter);
+
+
 
 const port = process.env.PORT || 3001;
 
