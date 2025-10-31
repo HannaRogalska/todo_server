@@ -1,0 +1,36 @@
+openapi: 3.0.3
+info:
+  title: "Todos"
+  version: "1.0.0"
+paths:
+  /todos:
+    get:
+      description: "Return all todos"
+      responses:
+        "200":
+          description: "A list of todos"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Todo"
+components:
+  schemas:
+    Todo:
+      type: array
+      items: 
+        type: object
+        properties:
+          _id:
+            type: string
+          text: 
+            type: string
+          done: 
+            type: boolean
+          createdAt:
+            type: string
+            format: date-time
+          updatedAt:
+            type: string
+            format: date-time
+          __v:
+            type: integer
