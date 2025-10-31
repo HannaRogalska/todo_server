@@ -2,6 +2,9 @@ openapi: 3.0.3
 info:
   title: "Todos"
   version: "1.0.0"
+servers:
+  - url: http://localhost:3000
+    description: "Development server"
 paths:
   /todos:
     get:
@@ -15,6 +18,21 @@ paths:
                 type: array
                 items: 
                   $ref: "#/components/schemas/Todo"
+    post:
+      description: "Create new todo"
+      responses:
+        "201":
+          description: "Created new todo"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text: 
+                  type: string
+                  example: "Walk the dog"
   /todos/{id}:
     get:
       description: "Return one todo"
