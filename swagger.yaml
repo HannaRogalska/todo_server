@@ -12,12 +12,29 @@ paths:
           content:
             application/json:
               schema:
+                type: array
+                items: 
+                  $ref: "#/components/schemas/Todo"
+  /todos/{id}:
+    get:
+      description: "Return one todo"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id to fetch"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "One todo"
+          content:
+            application/json:
+              schema:
                 $ref: "#/components/schemas/Todo"
 components:
   schemas:
     Todo:
-      type: array
-      items: 
         type: object
         properties:
           _id:
