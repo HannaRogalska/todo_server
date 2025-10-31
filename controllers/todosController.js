@@ -16,7 +16,7 @@ export const postTodo = async (req, res) => {
   try {
     const { text } = req.body;
     await Todo.create({ text });
-    res.status(200).json({ message: "Todo created" });
+    res.status(201).json({ message: "Todo created" });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Server error" });
