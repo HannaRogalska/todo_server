@@ -16,7 +16,7 @@ paths:
             application/json:
               schema:
                 type: array
-                items: 
+                items:
                   $ref: "#/components/schemas/Todo"
     post:
       description: "Create new todo"
@@ -30,7 +30,7 @@ paths:
             schema:
               type: object
               properties:
-                text: 
+                text:
                   type: string
                   example: "Walk the dog"
   /todos/{id}:
@@ -50,22 +50,43 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Todo"
+  /user/register:
+    post:
+      summary: "Create a new user account"
+      responses:
+        "201":
+          description: "User created successfully"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Hanna"
+                password:
+                  type: string
+                email:
+                  type: string
+                  example: "example@gmail.com"
 components:
   schemas:
     Todo:
-        type: object
-        properties:
-          _id:
-            type: string
-          text: 
-            type: string
-          done: 
-            type: boolean
-          createdAt:
-            type: string
-            format: date-time
-          updatedAt:
-            type: string
-            format: date-time
-          __v:
-            type: integer
+      type: object
+      properties:
+        _id:
+          type: string
+        text:
+          type: string
+        done:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        __v:
+          type: integer
