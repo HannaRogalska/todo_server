@@ -4,12 +4,15 @@ import todosRouter from "./routes/todos.js";
 import authRouter from "./routes/auth.js";
 import { connectDB } from "./data/db.js";
 import cookieParser from "cookie-parser";
-import cors from "cors"
+import cors from "cors";
+import YAML from "yamljs";
+import swaggerUi from "swagger-ui-express";
 
 
 
 
 const app = express();
+const swaggerDocument = YAML.load("./swagger.yaml");
 
 dotenv.config();
 
@@ -19,6 +22,8 @@ app.use(cors());
 
 app.use("/", todosRouter);
 app.use("/user", authRouter);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
 
 
