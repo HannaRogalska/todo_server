@@ -112,7 +112,7 @@ paths:
                 properties:
                   accessToken:
                     type: string
-                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."   
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
         "401":
           description: "Authentication failed (wrong password)"
           content:
@@ -132,7 +132,53 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: "User not found"          
+                    example: "User not found"
+  /user/refresh-token:
+    post:
+      summary: "Get access token"
+      tags:
+        - User
+      description: "Uses refreshToken stored in cookies to issue a new access token"
+      parameters:
+        - in: cookie
+          name: refreshToken
+          description: "Refresh token stored in cookies"
+          required: true
+          schema:
+            type: string
+            example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+      responses:
+        "200":
+          description: "New access token issued"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        "401":
+          description: "No refresh token"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "No refresh token"
+        "403":
+          description: "Invalid or revoked refresh token"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid refresh token"
+
 components:
   schemas:
     Todo:
