@@ -13,7 +13,7 @@ import swaggerUi from "swagger-ui-express";
 
 const app = express();
 const swaggerDocument = YAML.load("./swagger.yaml");
-
+ 
 dotenv.config();
 
 app.use(express.json());
