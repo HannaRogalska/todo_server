@@ -5,6 +5,8 @@ info:
 servers:
   - url: http://localhost:3000
     description: "Development server"
+security:
+  - BearerAuth: []
 
 paths:
   /todos:
@@ -178,6 +180,32 @@ paths:
                   message:
                     type: string
                     example: "Invalid refresh token"
+  /user/profile:
+    get:
+      tags:
+        - User
+      description: "Getting user profile"
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: "Successful get user profile"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    example: "6529a83fc..."
+                  name:
+                    type: string
+                    example: "Hanna"
+                  email:
+                    type: string
+                    example: "anna@example.com"
+        "404":
+          description: "User not found"
 
 components:
   schemas:
