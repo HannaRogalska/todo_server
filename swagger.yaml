@@ -84,7 +84,55 @@ paths:
                     example: "User created"
         "400":
           description: "Email, name and password required"
-
+  /user/login:
+    post:
+      summary: "User authorization"
+      tags:
+        - User
+      description: "Login with email and password"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserWithoutName"
+      responses:
+        "200":
+          description: "Successful authorization"
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: refreshToken=abc123; HttpOnly; SameSite=Strict
+            description: "Refresh token cookie"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."   
+        "401":
+          description: "Authentication failed (wrong password)"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Authentication failed"
+        "404":
+          description: "User not found"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User not found"          
 components:
   schemas:
     Todo:
@@ -122,3 +170,20 @@ components:
           type: string
           format: password
           example: "StrongPass123"
+    UserWithoutName:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          example: "example@gmail.com"
+        password:
+          type: string
+          format: password
+          example: "StrongPass123"
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
